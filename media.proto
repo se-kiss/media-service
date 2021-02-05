@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+package media;
+
+service MediaService {
+  rpc CreateMedia (CreateMediaArgs) returns (Media) {}
+  rpc GetMedia (GetMediaArgs) returns (Medias) {}
+  rpc UpdateMedia (UpdateMediaArgs) returns (Media) {}
+  rpc DeleteMedia (ObjectId) returns (Media) {}
+}
+
+message Media {
+  string _id = 1;
+  string playlistId = 2;
+  string title = 3;
+  optional string url = 4;
+  optional string content = 5;
+  optional string description = 6;
+  string _createdAt = 7;
+  string _updatedAt = 8;
+}
+
+message Medias {
+  repeated Media media = 1;
+}
+
+message CreateMediaArgs {
+  string playlistId = 1;
+  string title = 2;
+  optional string url = 3;
+  optional string content = 4;
+  optional string description = 5;
+}
+
+message GetMediaFilter {
+  string playlistId = 1;
+}
+
+message GetMediaArgs {
+  repeated string ids = 1;
+  optional GetMediaFilter filter = 2;
+}
+
+message UpdateMediaArgs {
+  string _id = 1;
+  string title = 2;
+  optional string url = 3;
+  optional string content = 4;
+  optional string description = 5;
+}
+
+message ObjectId {
+  string _id = 1;
+}
