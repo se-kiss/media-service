@@ -15,11 +15,22 @@ async function bootstrap() {
     {
       transport: Transport.GRPC,
       options: {
-        url: '0.0.0.5000',
-        package: [],
-        protoPath: [],
+        url: '0.0.0.0:5000',
+        package: 'media',
+        protoPath: 'media.proto',
+        loader: {
+          keepCase: true,
+          alternateCommentMode: true,
+          longs: Number,
+          enums: Number,
+          defaults: true,
+          arrays: true,
+          objects: true,
+          oneofs: true,
+          json: true,
+        },
       },
-    }
+    },
   );
 
   app.useGlobalPipes(
