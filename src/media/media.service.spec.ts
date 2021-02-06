@@ -48,7 +48,7 @@ describe('MediaService', () => {
   it('should create media', async () => {
     const res = await service.createMedia({
       playlistId: new Types.ObjectId(),
-      title: 'test',
+      name: 'test',
       url: 'test.com',
       content: 'test',
       description: 'test',
@@ -59,7 +59,7 @@ describe('MediaService', () => {
   it('should get media', async () => {
     const media = await service.createMedia({
       playlistId: new Types.ObjectId(),
-      title: 'test2',
+      name: 'test2',
       url: 'test2.com',
       content: 'test2',
       description: 'test2',
@@ -67,7 +67,7 @@ describe('MediaService', () => {
     const res = await service.getMedia({ ids: [media._id] });
     expect(res[0]._id).toEqual(media._id);
     expect(res[0].playlistId).toEqual(media.playlistId);
-    expect(res[0].title).toEqual(media.title);
+    expect(res[0].name).toEqual(media.name);
     expect(res[0].url).toEqual(media.url);
     expect(res[0].content).toEqual(media.content);
     expect(res[0].description).toEqual(media.description);
@@ -82,26 +82,26 @@ describe('MediaService', () => {
   it('should update media', async () => {
     const media = await service.createMedia({
       playlistId: new Types.ObjectId(),
-      title: 'test3',
+      name: 'test3',
       url: 'test3.com',
       content: 'test3',
       description: 'test3',
     });
     const args: UpdateMediaArgs = {
       _id: media._id,
-      title: 'new title',
+      name: 'new title',
       content: 'new content',
     };
     await service.updateMedia(args);
     const newMedia = await mongoose.findById(media._id);
-    expect(newMedia.title).toEqual(args.title);
+    expect(newMedia.name).toEqual(args.name);
     expect(newMedia.content).toEqual(args.content);
   });
 
   it('should delete media', async () => {
     const media = await service.createMedia({
       playlistId: new Types.ObjectId(),
-      title: 'test4',
+      name: 'test4',
       url: 'test4.com',
       content: 'test4',
       description: 'test4',

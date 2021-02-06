@@ -16,7 +16,7 @@ export class CreateMediaArgs
 
   @IsNotEmpty()
   @IsString()
-  title: string;
+  name: string;
 
   @IsOptional()
   @IsString()
@@ -39,7 +39,7 @@ export class UpdateMediaArgs
 
   @IsOptional()
   @IsString()
-  title?: string;
+  name?: string;
 
   @IsOptional()
   @IsString()

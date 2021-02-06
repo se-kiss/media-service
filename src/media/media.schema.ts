@@ -2,7 +2,7 @@ import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
 
 export interface IMedia {
-  title: string;
+  name: string;
   description?: string;
   _createdAt: Date;
   _updatedAt: Date;
@@ -28,7 +28,7 @@ export class Media extends Document implements IMedia {
   content?: string;
 
   @Prop({ type: String, required: true })
-  title: string;
+  name: string;
 
   @Prop({ type: String, required: false })
   description?: string;
