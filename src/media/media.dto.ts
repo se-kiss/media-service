@@ -4,6 +4,7 @@ import {
   IsString,
   IsOptional,
   ValidateNested,
+  IsArray,
 } from 'class-validator';
 import { IMedia } from './media.schema';
 import { Types } from 'mongoose';
@@ -62,7 +63,12 @@ export class GetMediaFilter {
 
 export class GetMediaArgs {
   @IsOptional()
-  @Transform(value => new Types.ObjectId(value))
+  @IsArray()
+  @Transform((values: string[]) => {
+    return values.length === 0
+      ? undefined
+      : values.map(value => new Types.ObjectId(value));
+  })
   ids?: Types.ObjectId[];
 
   @IsOptional()
