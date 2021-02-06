@@ -18,7 +18,7 @@ export class Media extends Document implements IMedia {
   _createdAt: Date;
   _updatedAt: Date;
 
-  @Prop({ type: Types.ObjectId })
+  @Prop({ type: Types.ObjectId, required: true })
   playlistId: Types.ObjectId;
 
   @Prop({ type: String, required: false })
