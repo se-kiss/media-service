@@ -7,6 +7,7 @@ import {
 } from '@nestjs/microservices';
 import { AppModule } from './app.module';
 import { status } from 'grpc';
+import { CleanUndefinedPipe } from './clean-undefined.pipe';
 
 async function bootstrap() {
   const logger = new Logger('MediaService');
@@ -42,6 +43,7 @@ async function bootstrap() {
           message: errors.toString(),
         }),
     }),
+    new CleanUndefinedPipe(),
   );
 
   app.listen(() => logger.log('Media service is listening'));
