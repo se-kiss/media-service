@@ -20,8 +20,8 @@ export class MediaService implements OnModuleInit {
     return await createdMedia.save();
   }
 
-  async getMedia({ ids, filter }: GetMediaArgs): Promise<Media[]> {
-    const media = this.mediaModel.find({ ...filter });
+  async getMedia({ ids, filters }: GetMediaArgs): Promise<Media[]> {
+    const media = this.mediaModel.find({ ...filters });
     ids && media.find({ _id: { $in: ids } });
     return await media.exec();
   }
