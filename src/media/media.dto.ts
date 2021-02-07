@@ -5,9 +5,18 @@ import {
   IsOptional,
   ValidateNested,
   IsArray,
+  IsEnum,
+  isEmpty,
 } from 'class-validator';
-import { IMedia } from './media.schema';
+import { IMedia, MediaType } from './media.schema';
 import { Types } from 'mongoose';
+
+const EmptyTransform = () =>
+  Transform(value =>
+    isEmpty(value) || (Array.isArray(value) && value.length === 0)
+      ? undefined
+      : value,
+  );
 
 export class CreateMediaArgs
   implements Omit<IMedia, '_createdAt' | '_updatedAt'> {
@@ -18,6 +27,10 @@ export class CreateMediaArgs
   @IsNotEmpty()
   @IsString()
   name: string;
+
+  @IsNotEmpty()
+  @IsEnum(MediaType)
+  type: MediaType;
 
   @IsOptional()
   @IsString()
@@ -56,9 +69,15 @@ export class UpdateMediaArgs
 }
 
 export class GetMediaFilter {
-  @IsNotEmpty()
-  @Transform(value => new Types.ObjectId(value))
-  playlistId: Types.ObjectId;
+  @EmptyTransform()
+  @Transform(value => {
+    if (!value || !/\S/.test(value)) return undefined;
+    else return new Types.ObjectId(value);
+  })
+  playlistId?: Types.ObjectId;
+
+  @Transform(value => (value === 0 ? undefined : value))
+  type?: MediaType;
 }
 
 export class GetMediaArgs {
@@ -74,7 +93,7 @@ export class GetMediaArgs {
   @IsOptional()
   @ValidateNested()
   @Type(() => GetMediaFilter)
-  filter?: GetMediaFilter;
+  filters?: GetMediaFilter;
 }
 
 export class DeleteMediaArgs {
