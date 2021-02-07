@@ -4,7 +4,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule, getModelToken } from '@nestjs/mongoose';
 import { MediaService } from './media.service';
-import { Media, MediaSchema } from './media.schema';
+import { Media, MediaSchema, MediaType } from './media.schema';
 import { UpdateMediaArgs } from './media.dto';
 
 describe('MediaService', () => {
@@ -49,6 +49,7 @@ describe('MediaService', () => {
     const res = await service.createMedia({
       playlistId: new Types.ObjectId(),
       name: 'test',
+      type: MediaType.CLIP,
       url: 'test.com',
       content: 'test',
       description: 'test',
@@ -60,6 +61,7 @@ describe('MediaService', () => {
     const media = await service.createMedia({
       playlistId: new Types.ObjectId(),
       name: 'test2',
+      type: MediaType.ARTICLE,
       url: 'test2.com',
       content: 'test2',
       description: 'test2',
@@ -83,6 +85,7 @@ describe('MediaService', () => {
     const media = await service.createMedia({
       playlistId: new Types.ObjectId(),
       name: 'test3',
+      type: MediaType.CLIP,
       url: 'test3.com',
       content: 'test3',
       description: 'test3',
@@ -102,6 +105,7 @@ describe('MediaService', () => {
     const media = await service.createMedia({
       playlistId: new Types.ObjectId(),
       name: 'test4',
+      type: MediaType.ARTICLE,
       url: 'test4.com',
       content: 'test4',
       description: 'test4',
