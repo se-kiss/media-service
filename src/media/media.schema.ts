@@ -1,6 +1,11 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
 
+export enum MediaType {
+  CLIP = 1,
+  ARTICLE = 2,
+}
+
 export interface IMedia {
   name: string;
   description?: string;
@@ -20,6 +25,9 @@ export class Media extends Document implements IMedia {
 
   @Prop({ type: Types.ObjectId, required: true })
   playlistId: Types.ObjectId;
+
+  @Prop({ type: MediaType, required: true })
+  type: MediaType;
 
   @Prop({ type: String, required: false })
   url?: string;
