@@ -9,15 +9,22 @@ service MediaService {
   rpc DeleteMedia (ObjectId) returns (Media) {}
 }
 
+enum MediaType {
+  EMPTY = 0;
+  CLIP = 1;
+  ARTICLE = 2;
+}
+
 message Media {
   string _id = 1;
   string playlistId = 2;
   string name = 3;
-  optional string url = 4;
-  optional string content = 5;
-  optional string description = 6;
-  string _createdAt = 7;
-  string _updatedAt = 8;
+  MediaType type = 4;
+  optional string url = 5;
+  optional string content = 6;
+  optional string description = 7;
+  string _createdAt = 8;
+  string _updatedAt = 9;
 }
 
 message Medias {
@@ -27,18 +34,20 @@ message Medias {
 message CreateMediaArgs {
   string playlistId = 1;
   string name = 2;
-  optional string url = 3;
-  optional string content = 4;
-  optional string description = 5;
+  MediaType type = 3;
+  optional string url = 4;
+  optional string content = 5;
+  optional string description = 6;
 }
 
 message GetMediaFilter {
   string playlistId = 1;
+  MediaType type = 2;
 }
 
 message GetMediaArgs {
   repeated string ids = 1;
-  optional GetMediaFilter filter = 2;
+  optional GetMediaFilter filters = 2;
 }
 
 message UpdateMediaArgs {
