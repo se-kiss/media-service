@@ -8,6 +8,11 @@ export enum MediaType {
 
 export interface IMedia {
   name: string;
+  playlistId: Types.ObjectId;
+  type: MediaType;
+  tagIds: Types.ObjectId[];
+  url?: string;
+  paragraph?: string[];
   description?: string;
   _createdAt: Date;
   _updatedAt: Date;
@@ -29,11 +34,14 @@ export class Media extends Document implements IMedia {
   @Prop({ type: MediaType, required: true })
   type: MediaType;
 
+  @Prop({ type: [Types.ObjectId], required: true })
+  tagIds: Types.ObjectId[];
+
   @Prop({ type: String, required: false })
   url?: string;
 
-  @Prop({ type: String, required: false })
-  content?: string;
+  @Prop({ type: [String], required: false })
+  paragraph?: string[];
 
   @Prop({ type: String, required: true })
   name: string;

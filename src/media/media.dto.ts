@@ -25,6 +25,12 @@ export class CreateMediaArgs
   playlistId: Types.ObjectId;
 
   @IsNotEmpty()
+  @Transform((values: string[]) =>
+    values.map(value => new Types.ObjectId(value)),
+  )
+  tagIds: Types.ObjectId[];
+
+  @IsNotEmpty()
   @IsString()
   name: string;
 
@@ -37,8 +43,8 @@ export class CreateMediaArgs
   url?: string;
 
   @IsOptional()
-  @IsString()
-  content?: string;
+  @IsArray()
+  paragraph?: string[];
 
   @IsOptional()
   @IsString()
@@ -60,8 +66,15 @@ export class UpdateMediaArgs
   url?: string;
 
   @IsOptional()
-  @IsString()
-  content?: string;
+  @IsArray()
+  @Transform((values: string[]) =>
+    values.map(value => new Types.ObjectId(value)),
+  )
+  tagIds?: Types.ObjectId[];
+
+  @IsOptional()
+  @IsArray()
+  paragraph?: string[];
 
   @IsOptional()
   @IsString()
@@ -75,6 +88,15 @@ export class GetMediaFilter {
     else return new Types.ObjectId(value);
   })
   playlistId?: Types.ObjectId;
+
+  @IsOptional()
+  @IsArray()
+  @Transform((values: string[]) => {
+    return values.length === 0
+      ? undefined
+      : values.map(value => new Types.ObjectId(value));
+  })
+  tagIds?: Types.ObjectId[];
 
   @Transform(value => (value === 0 ? undefined : value))
   type?: MediaType;

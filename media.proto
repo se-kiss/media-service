@@ -21,10 +21,11 @@ message Media {
   string name = 3;
   MediaType type = 4;
   optional string url = 5;
-  optional string content = 6;
-  optional string description = 7;
-  string _createdAt = 8;
-  string _updatedAt = 9;
+  repeated string paragraph = 6;
+  repeated string tagIds = 7;
+  optional string description = 8;
+  string _createdAt = 9;
+  string _updatedAt = 10;
 }
 
 message Medias {
@@ -36,13 +37,15 @@ message CreateMediaArgs {
   string name = 2;
   MediaType type = 3;
   optional string url = 4;
-  optional string content = 5;
-  optional string description = 6;
+  repeated string paragraph = 5;
+  repeated string tagIds = 6;
+  optional string description = 7;
 }
 
 message GetMediaFilter {
   string playlistId = 1;
-  MediaType type = 2;
+  repeated string tagIds = 2;
+  MediaType type = 3;
 }
 
 message GetMediaArgs {
@@ -54,8 +57,9 @@ message UpdateMediaArgs {
   string _id = 1;
   string name = 2;
   optional string url = 3;
-  optional string content = 4;
-  optional string description = 5;
+  repeated string paragraph = 4;
+  repeated string tagIds = 5;
+  optional string description = 6;
 }
 
 message ObjectId {

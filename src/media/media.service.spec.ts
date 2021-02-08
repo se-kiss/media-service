@@ -51,7 +51,8 @@ describe('MediaService', () => {
       name: 'test',
       type: MediaType.CLIP,
       url: 'test.com',
-      content: 'test',
+      tagIds: [new Types.ObjectId('aaaaaaaaaaaaaaaaaaaaaaaa')],
+      paragraph: ['test', 'test2'],
       description: 'test',
     });
     expect(await mongoose.findById(res._id)).toBeDefined();
@@ -63,7 +64,8 @@ describe('MediaService', () => {
       name: 'test2',
       type: MediaType.ARTICLE,
       url: 'test2.com',
-      content: 'test2',
+      tagIds: [new Types.ObjectId('aaaaaaaaaaaaaaaaaaaaaaaa')],
+      paragraph: ['test', 'test2'],
       description: 'test2',
     });
     const res = await service.getMedia({ ids: [media._id] });
@@ -71,7 +73,8 @@ describe('MediaService', () => {
     expect(res[0].playlistId).toEqual(media.playlistId);
     expect(res[0].name).toEqual(media.name);
     expect(res[0].url).toEqual(media.url);
-    expect(res[0].content).toEqual(media.content);
+    expect(res[0].tagIds[0]).toEqual(media.tagIds[0]);
+    expect(res[0].paragraph.length).toEqual(media.paragraph.length);
     expect(res[0].description).toEqual(media.description);
   });
 
@@ -87,18 +90,19 @@ describe('MediaService', () => {
       name: 'test3',
       type: MediaType.CLIP,
       url: 'test3.com',
-      content: 'test3',
+      tagIds: [new Types.ObjectId('aaaaaaaaaaaaaaaaaaaaaaaa')],
+      paragraph: ['test', 'test2'],
       description: 'test3',
     });
     const args: UpdateMediaArgs = {
       _id: media._id,
       name: 'new title',
-      content: 'new content',
+      paragraph: ['kuy1', 'kuy2'],
     };
     await service.updateMedia(args);
     const newMedia = await mongoose.findById(media._id);
     expect(newMedia.name).toEqual(args.name);
-    expect(newMedia.content).toEqual(args.content);
+    expect(newMedia.paragraph.length).toEqual(args.paragraph.length);
   });
 
   it('should delete media', async () => {
@@ -107,7 +111,8 @@ describe('MediaService', () => {
       name: 'test4',
       type: MediaType.ARTICLE,
       url: 'test4.com',
-      content: 'test4',
+      tagIds: [new Types.ObjectId('aaaaaaaaaaaaaaaaaaaaaaaa')],
+      paragraph: ['test', 'test2'],
       description: 'test4',
     });
     await service.deleteMedia(media._id);

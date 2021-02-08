@@ -21,7 +21,12 @@ export class MediaService implements OnModuleInit {
   }
 
   async getMedia({ ids, filters }: GetMediaArgs): Promise<Media[]> {
-    const media = this.mediaModel.find({ ...filters });
+    const media = this.mediaModel.find({});
+    if (filters && filters.type) media.find({ type: filters.type });
+    if (filters && filters.playlistId)
+      media.find({ playlistId: filters.playlistId });
+    if (filters && filters.tagIds)
+      media.find({ tagIds: { $in: filters.tagIds } });
     ids && media.find({ _id: { $in: ids } });
     return await media.exec();
   }
