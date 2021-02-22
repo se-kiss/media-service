@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package playlist;
+
+service PlaylistService {
+  rpc CreatePlaylist (CreatePlaylistArgs) returns (Playlist) {}
+  rpc GetPlaylists (GetPlaylistsArgs) returns (Playlists) {}
+  rpc UpdatePlaylist (UpdatePlaylistArgs) returns (Playlist) {}
+  rpc DeletePlaylist (ObjectId) returns (Playlist) {}
+}
+
+message Playlist {
+  string _id = 1;
+  string ownerId = 2;
+  string name = 3;
+  optional string description = 4;
+  repeated string tagIds = 5;
+  string _createdAt = 6;
+  string _updatedAt = 7;
+}
+
+message Playlists {
+  repeated Playlist playlists = 1;
+}
+
+message CreatePlaylistArgs {
+  string name = 1;
+  string ownerId = 2;
+  optional string description = 3;
+  repeated string tagIds = 4;
+}
+
+message GetPlaylistFilter {
+  optional string ownerId = 1;
+  repeated string tagIds = 2;
+}
+
+message GetPlaylistsArgs {
+  repeated string ids = 1;
+  optional GetPlaylistFilter filters = 2;
+}
+
+message UpdatePlaylistArgs {
+  string _id = 1;
+  optional string name = 2;
+  repeated string tagIds = 3;
+  optional string description = 4;
+}
+
+message ObjectId {
+  string _id = 1;
+}
