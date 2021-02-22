@@ -4,12 +4,18 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MediaModule } from './media/media.module';
+import { SearchModule } from './search/search.module';
+import { PlaylistModule } from './playlist/playlist.module';
+import { TagModule } from './tag/tag.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
-    MediaModule,
     MongooseModule.forRoot(process.env.MONGODB_URL),
+    MediaModule,
+    PlaylistModule,
+    TagModule,
+    SearchModule,
   ],
   controllers: [AppController],
   providers: [AppService],

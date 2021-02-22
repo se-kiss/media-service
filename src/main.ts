@@ -17,8 +17,8 @@ async function bootstrap() {
       transport: Transport.GRPC,
       options: {
         url: '0.0.0.0:5000',
-        package: 'media',
-        protoPath: 'media.proto',
+        package: ['media', 'playlist', 'search'],
+        protoPath: ['media.proto', 'playlist.proto', 'search.proto'],
         loader: {
           keepCase: true,
           alternateCommentMode: true,
