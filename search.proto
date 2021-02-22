@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+package search;
+
+service SearchService {
+  rpc IndexMedia (SearchBody) returns (StatusCode) {}
+  rpc Search (SearchArgs) returns (Result) {}
+  rpc Update (SearchBody) returns (StatusCode) {}
+  rpc Remove (DeleteArgs) returns (StatusCode) {}
+  rpc ClearIndex (google.protobuf.Empty) returns (StatusCode) {}
+}
+
+message SearchBody {
+  string playlistId = 1;
+  string name = 2;
+  string ownerName = 3;
+  repeated string tags = 4;
+  string description = 5;
+  repeated string types = 6;
+}
+
+message SearchArgs {
+  string text = 1;
+  int32 from = 2;
+  int32 size = 3;
+  repeated string types = 4;
+  repeated string tags = 5;
+}
+
+message StatusCode {
+  int32 statusCode = 1;
+}
+
+message Result {
+  repeated SearchBody res = 1;
+}
+
+message DeleteArgs {
+  string playlistId = 1;
+}
