@@ -42,7 +42,7 @@ export class PlaylistService implements OnModuleInit {
       },
     );
     if (!updatedPlaylist) throw new NotFoundException();
-    return this.playlistModel.findById(updatedPlaylist._id).exec();
+    return await this.playlistModel.findById(updatedPlaylist._id).exec();
   }
 
   async deletePlaylist(_id: Types.ObjectId): Promise<Playlist> {

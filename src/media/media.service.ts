@@ -37,7 +37,7 @@ export class MediaService implements OnModuleInit {
       _updatedAt: new Date(),
     });
     if (!updatedMedia) throw new NotFoundException();
-    return this.mediaModel.findById(updatedMedia._id).exec();
+    return await this.mediaModel.findById(updatedMedia._id).exec();
   }
 
   async deleteMedia(_id: Types.ObjectId): Promise<Media> {
