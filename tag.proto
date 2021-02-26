@@ -3,5 +3,38 @@ syntax = "proto3";
 package tag;
 
 service TagService {
+  rpc CreateTag (CreateTagArgs) returns (Tag) {}
+  rpc GetTags (GetTagArgs) returns (Tags) {}
+  rpc UpdateTag (UpdateTagArgs) returns (Tag) {}
+  rpc DeleteTag (DeleteTagArgs) returns (Tag) {}
+}
 
+message Tag {
+  string _id = 1;
+  string name = 2;
+  string color = 3;
+  string _createdAt = 4;
+  string _updatedAt = 5;
+}
+
+message Tags {
+  repeated Tag tags = 1;
+}
+
+message CreateTagArgs {
+  string name = 1;
+  string color = 2;
+}
+
+message GetTagArgs {
+  repeated string ids = 1;
+}
+
+message UpdateTagArgs {
+  string _id = 1;
+  string color = 2;
+}
+
+message DeleteTagArgs {
+  string _id = 1;
 }
