@@ -25,7 +25,7 @@ export class SearchService {
     return res.statusCode;
   }
 
-  async search(args: SearchArgs): Promise<SearchBody[]> {
+  async search(args: SearchArgs): Promise<string[]> {
     const searchBody = {
       from: args.from,
       size: args.size,
@@ -58,7 +58,7 @@ export class SearchService {
       body: searchBody,
     });
     const hits = body.hits.hits;
-    return hits.map(item => item._source);
+    return hits.map(item => item._source.playlistId);
   }
 
   async update(args: SearchBody): Promise<number> {

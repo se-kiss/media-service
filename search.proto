@@ -34,7 +34,7 @@ message StatusCode {
 }
 
 message Result {
-  repeated SearchBody res = 1;
+  repeated string playlistIds = 1;
 }
 
 message DeleteArgs {

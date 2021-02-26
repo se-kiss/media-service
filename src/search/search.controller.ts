@@ -21,9 +21,9 @@ export class SearchController {
   }
 
   @GrpcMethod('SearchService', 'Search')
-  async search(args: SearchArgs): Promise<{ res: SearchBody[] }> {
+  async search(args: SearchArgs): Promise<{ playlistIds: string[] }> {
     try {
-      return { res: await this.searchService.search(args) };
+      return { playlistIds: await this.searchService.search(args) };
     } catch (e) {
       throw new RpcException({
         code: status.INVALID_ARGUMENT,
