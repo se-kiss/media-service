@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kiss-media
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kiss-media
+  template:
+    metadata:
+      labels:
+        app: kiss-media
+    spec:
+      containers:
+      - name: kiss-media
+        image: registry.gitlab.com/nestz671/kiss-container-registries/media:0.0.7
+        ports:
+        - containerPort: 5000
+        env:
+          - name: MONGODB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mongodb
+                key: mongodb-root-password
+          - name: MONGODB_URL
+            value: mongodb://root:$(MONGODB_PASSWORD)@mongodb:27017/kiss-media?authSource=admin
+        resources:
+          requests:
+            cpu: 10m
+            memory: 50Mi
+          limits:
+            cpu: 100m
+            memory: 100Mi
+      imagePullSecrets:
+        - name: gitlab-docker-registry
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kiss-media
+spec:
+  type: ClusterIP
+  selector:
+    app: kiss-media
+  ports:
+  - port: 5000
+    targetPort: 5000
+    protocol: TCP
