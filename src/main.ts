@@ -19,10 +19,10 @@ async function bootstrap() {
         url: '0.0.0.0:5000',
         package: ['media', 'playlist', 'search', 'tag'],
         protoPath: [
-          'media.proto',
-          'playlist.proto',
-          'search.proto',
-          'tag.proto',
+          './protos/media.proto',
+          './protos/playlist.proto',
+          './protos/search.proto',
+          './protos/tag.proto',
         ],
         loader: {
           keepCase: true,
