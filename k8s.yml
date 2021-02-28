@@ -25,6 +25,8 @@ spec:
                 key: mongodb-root-password
           - name: MONGODB_URL
             value: mongodb://root:$(MONGODB_PASSWORD)@mongodb:27017/kiss-media?authSource=admin
+          - name: ELASTICSEARCH_NODE
+            value: https://es.markkiti.me
         resources:
           requests:
             cpu: 10m
