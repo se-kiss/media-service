@@ -8,7 +8,7 @@ import {
   IsArray,
   isEmpty,
 } from 'class-validator';
-import { IComment } from './comment.schema';
+import { IComment, Comment } from './comment.schema';
 
 const EmptyTransform = () =>
   Transform(value =>
@@ -20,6 +20,9 @@ const EmptyTransform = () =>
 export class CreateCommentArgs
   implements Omit<IComment, '_createdAt' | '_updatedAt'> {
   @EmptyTransform()
+  @Transform(value =>
+    value === undefined ? undefined : new Types.ObjectId(value),
+  )
   parentId?: Types.ObjectId;
 
   @IsNotEmpty()
@@ -88,4 +91,20 @@ export class DeleteCommentArgs {
   @IsNotEmpty()
   @Transform(value => new Types.ObjectId(value))
   _id: Types.ObjectId;
+}
+
+export class CommentForMedia {
+  @IsNotEmpty()
+  @Transform(value => new Types.ObjectId(value))
+  commentId: Types.ObjectId;
+
+  @IsNotEmpty()
+  @IsArray()
+  children: CommentForMedia[];
+}
+
+export class CommentsForMediaArgs {
+  @IsNotEmpty()
+  @Transform(value => new Types.ObjectId(value))
+  mediaId: Types.ObjectId;
 }
