@@ -5,6 +5,7 @@ package comment;
 service CommentService {
   rpc CreateComment (CreateCommentArgs) returns (Comment) {}
   rpc GetComments (GetCommentsArgs) returns (Comments) {}
+  rpc CommentsForMedia (CommentsForMediaArgs) returns (CommentsForMedia) {}
   rpc UpdateComment (UpdateCommentArgs) returns (Comment) {}
   rpc DeleteComment (DeleteCommentArgs) returns (Comment) {}
 }
@@ -21,6 +22,19 @@ message Comment {
 
 message Comments {
   repeated Comment comments = 1;
+}
+
+message CommentsForMediaArgs {
+  string mediaId = 1;
+}
+
+message CommentForMedia {
+  string commentId = 1;
+  repeated CommentForMedia children = 2;
+}
+
+message CommentsForMedia {
+  repeated CommentForMedia comments = 1;
 }
 
 message CreateCommentArgs {
