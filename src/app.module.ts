@@ -7,6 +7,7 @@ import { MediaModule } from './media/media.module';
 import { SearchModule } from './search/search.module';
 import { PlaylistModule } from './playlist/playlist.module';
 import { TagModule } from './tag/tag.module';
+import { CommentModule } from './comment/comment.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { TagModule } from './tag/tag.module';
     PlaylistModule,
     TagModule,
     SearchModule,
+    CommentModule,
   ],
   controllers: [AppController],
   providers: [AppService],
