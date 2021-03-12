@@ -4,9 +4,11 @@ import { status } from 'grpc';
 import { CommentService } from './comment.service';
 import {
   CreateCommentArgs,
-  GetCommentsArgs,
+  CommentsForMediaArgs,
   UpdateCommentArgs,
   DeleteCommentArgs,
+  CommentForMedia,
+  GetCommentsArgs,
 } from './comment.dto';
 import { Comment } from './comment.schema';
 
@@ -26,10 +28,28 @@ export class CommentController {
     }
   }
 
+  @GrpcMethod('CommentService', 'CommentsForMedia')
+  async commentsForMedia(
+    args: CommentsForMediaArgs,
+  ): Promise<{ comments: CommentForMedia[] }> {
+    try {
+      return {
+        comments: await this.commentService.commentsForMedia(args.mediaId),
+      };
+    } catch (e) {
+      throw new RpcException({
+        code: status.INTERNAL,
+        message: e.message,
+      });
+    }
+  }
+
   @GrpcMethod('CommentService', 'GetComments')
   async getComments(args: GetCommentsArgs): Promise<{ comments: Comment[] }> {
     try {
-      return { comments: await this.commentService.getComments(args) };
+      return {
+        comments: await this.commentService.getComments(args),
+      };
     } catch (e) {
       throw new RpcException({
         code: status.INTERNAL,

@@ -99,4 +99,48 @@ describe('CommentService', () => {
     await service.deleteComment(comment._id);
     expect(await service.getComments({ ids: [comment._id] })).toHaveLength(0);
   });
+
+  it("should get comment's tree", async () => {
+    const root = await service.createComment({
+      userId: new Types.ObjectId(),
+      mediaId: new Types.ObjectId(),
+      text: 'root',
+    });
+    const child1 = await service.createComment({
+      parentId: root._id,
+      userId: new Types.ObjectId(),
+      mediaId: root.mediaId,
+      text: 'child1',
+    });
+    const child2 = await service.createComment({
+      parentId: root._id,
+      userId: new Types.ObjectId(),
+      mediaId: root.mediaId,
+      text: 'child2',
+    });
+    const child11 = await service.createComment({
+      parentId: child1._id,
+      userId: new Types.ObjectId(),
+      mediaId: root.mediaId,
+      text: 'child11',
+    });
+    const child12 = await service.createComment({
+      parentId: child1._id,
+      userId: new Types.ObjectId(),
+      mediaId: root.mediaId,
+      text: 'child12',
+    });
+    const commentsForMedia = await service.commentsForMedia(root.mediaId);
+    expect(commentsForMedia[0].children).toHaveLength(2);
+    expect(commentsForMedia[0].children[0].commentId).toEqual(child1._id);
+    expect(commentsForMedia[0].children[0].children).toHaveLength(2);
+    expect(commentsForMedia[0].children[0].children[0].commentId).toEqual(
+      child11._id,
+    );
+    expect(commentsForMedia[0].children[0].children[1].commentId).toEqual(
+      child12._id,
+    );
+    expect(commentsForMedia[0].children[1].commentId).toEqual(child2._id);
+    expect(commentsForMedia[0].children[1].children).toHaveLength(0);
+  });
 });
