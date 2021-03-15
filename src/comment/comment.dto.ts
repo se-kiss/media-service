@@ -8,7 +8,7 @@ import {
   IsArray,
   isEmpty,
 } from 'class-validator';
-import { IComment, Comment } from './comment.schema';
+import { IComment } from './comment.schema';
 
 const EmptyTransform = () =>
   Transform(value =>
@@ -62,6 +62,13 @@ export class GetCommentsFilters {
     else return new Types.ObjectId(value);
   })
   parentId?: Types.ObjectId;
+
+  @EmptyTransform()
+  @Transform(value => {
+    if (!value || !/\S/.test(value)) return undefined;
+    else return new Types.ObjectId(value);
+  })
+  userId?: Types.ObjectId;
 
   @EmptyTransform()
   @Transform(value => {

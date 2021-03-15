@@ -47,6 +47,7 @@ message CreateCommentArgs {
 message GetCommentsFilters {
   optional string mediaId = 1;
   optional string parentId = 2;
+  optional string userId = 3;
 }
 
 message GetCommentsArgs{

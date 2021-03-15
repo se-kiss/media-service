@@ -28,6 +28,7 @@ export class CommentService implements OnModuleInit {
   async getComments({ ids, filters }: GetCommentsArgs): Promise<Comment[]> {
     const comment = this.commentModel.find({});
     if (filters && filters.mediaId) comment.find({ mediaId: filters.mediaId });
+    if (filters && filters.userId) comment.find({ userId: filters.userId });
     if (filters && filters.parentId !== undefined)
       comment.find({ parentId: filters.parentId });
     ids && comment.find({ _id: { $in: ids } });
