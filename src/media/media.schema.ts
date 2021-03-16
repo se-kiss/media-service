@@ -13,6 +13,7 @@ export interface IMedia {
   type: MediaType;
   tagIds: Types.ObjectId[];
   videoId?: string;
+  podcastKey?: string;
   paragraph?: string[];
   description?: string;
   _createdAt: Date;
@@ -40,6 +41,9 @@ export class Media extends Document implements IMedia {
 
   @Prop({ type: String, required: false })
   videoId?: string;
+
+  @Prop({ type: String, required: false })
+  podcastKey?: string;
 
   @Prop({ type: [String], required: false })
   paragraph?: string[];

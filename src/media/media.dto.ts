@@ -43,6 +43,10 @@ export class CreateMediaArgs
   videoId?: string;
 
   @IsOptional()
+  @IsString()
+  podcastKey?: string;
+
+  @IsOptional()
   @IsArray()
   paragraph?: string[];
 
@@ -64,6 +68,10 @@ export class UpdateMediaArgs
   @IsOptional()
   @IsString()
   videoId?: string;
+
+  @IsOptional()
+  @IsString()
+  podcastKey?: string;
 
   @IsOptional()
   @IsArray()

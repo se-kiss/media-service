@@ -22,11 +22,12 @@ message Media {
   string name = 3;
   MediaType type = 4;
   optional string videoId = 5;
-  repeated string paragraph = 6;
-  repeated string tagIds = 7;
-  optional string description = 8;
-  string _createdAt = 9;
-  string _updatedAt = 10;
+  optional string podcastKey = 6;
+  repeated string paragraph = 7;
+  repeated string tagIds = 8;
+  optional string description = 9;
+  string _createdAt = 10;
+  string _updatedAt = 11;
 }
 
 message Medias {
@@ -38,9 +39,10 @@ message CreateMediaArgs {
   string name = 2;
   MediaType type = 3;
   optional string videoId = 4;
-  repeated string paragraph = 5;
-  repeated string tagIds = 6;
-  optional string description = 7;
+  optional string podcastKey = 5;
+  repeated string paragraph = 6;
+  repeated string tagIds = 7;
+  optional string description = 8;
 }
 
 message GetMediaFilter {
@@ -58,9 +60,10 @@ message UpdateMediaArgs {
   string _id = 1;
   string name = 2;
   optional string videoId = 3;
-  repeated string paragraph = 4;
-  repeated string tagIds = 5;
-  optional string description = 6;
+  optional string podcastKey = 4;
+  repeated string paragraph = 5;
+  repeated string tagIds = 6;
+  optional string description = 7;
 }
 
 message ObjectId {
