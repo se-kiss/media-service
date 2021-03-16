@@ -51,7 +51,6 @@ describe('PlaylistService', () => {
     const res = await service.createPlaylist({
       name: 'test',
       ownerId: new Types.ObjectId(),
-      tagIds: [new Types.ObjectId()],
     });
     expect(await mongoose.findById(res._id)).toBeDefined();
   });
@@ -60,20 +59,17 @@ describe('PlaylistService', () => {
     const playlist = await service.createPlaylist({
       name: 'test2',
       ownerId: new Types.ObjectId(),
-      tagIds: [new Types.ObjectId()],
     });
     const res = await service.getPlaylists({ ids: [playlist._id] });
     expect(res[0]._id).toEqual(playlist._id);
     expect(res[0].name).toEqual(playlist.name);
     expect(res[0].ownerId).toEqual(playlist.ownerId);
-    expect(res[0].tagIds[0]).toEqual(playlist.tagIds[0]);
   });
 
   it('should update playlist', async () => {
     const playlist = await service.createPlaylist({
       name: 'test3',
       ownerId: new Types.ObjectId(),
-      tagIds: [new Types.ObjectId()],
     });
     const args: UpdatePlaylistArgs = {
       _id: playlist._id,
@@ -90,7 +86,6 @@ describe('PlaylistService', () => {
     const playlist = await service.createPlaylist({
       name: 'test4',
       ownerId: new Types.ObjectId(),
-      tagIds: [new Types.ObjectId()],
     });
     await service.deletePlaylist(playlist._id);
     expect(await service.getPlaylists({ ids: [playlist._id] })).toHaveLength(0);

@@ -4,7 +4,6 @@ import {
   IsOptional,
   IsString,
   IsArray,
-  IsEnum,
   ValidateNested,
   isEmpty,
 } from 'class-validator';
@@ -31,15 +30,6 @@ export class CreatePlaylistArgs
   @IsOptional()
   @IsString()
   description?: string;
-
-  @IsNotEmpty()
-  @IsArray()
-  @Transform((values: string[]) => {
-    return values.length === 0
-      ? undefined
-      : values.map(value => new Types.ObjectId(value));
-  })
-  tagIds: Types.ObjectId[];
 }
 
 export class UpdatePlaylistArgs
@@ -56,15 +46,6 @@ export class UpdatePlaylistArgs
   @IsOptional()
   @IsString()
   description?: string;
-
-  @IsOptional()
-  @IsArray()
-  @Transform((values: string[]) => {
-    return values.length === 0
-      ? undefined
-      : values.map(value => new Types.ObjectId(value));
-  })
-  tagIds?: Types.ObjectId[];
 }
 
 export class GetPlaylistFilter {
@@ -74,9 +55,6 @@ export class GetPlaylistFilter {
     else return new Types.ObjectId(value);
   })
   ownerId?: Types.ObjectId;
-
-  @EmptyTransform()
-  tagIds?: Types.ObjectId[];
 }
 
 export class GetPlaylistsArgs {

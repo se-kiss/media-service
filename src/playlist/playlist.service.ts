@@ -1,7 +1,7 @@
 import { Injectable, OnModuleInit, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Playlist } from './playlist.schema';
 import { Model, Types } from 'mongoose';
+import { Playlist } from './playlist.schema';
 import {
   CreatePlaylistArgs,
   GetPlaylistsArgs,
@@ -27,8 +27,6 @@ export class PlaylistService implements OnModuleInit {
   async getPlaylists({ ids, filters }: GetPlaylistsArgs): Promise<Playlist[]> {
     const playlist = this.playlistModel.find({});
     if (filters && filters.ownerId) playlist.find({ ownerId: filters.ownerId });
-    if (filters && filters.tagIds)
-      playlist.find({ tagIds: { $in: filters.tagIds } });
     ids && playlist.find({ _id: { $in: ids } });
     return await playlist.exec();
   }
