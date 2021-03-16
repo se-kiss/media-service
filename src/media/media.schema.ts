@@ -11,7 +11,7 @@ export interface IMedia {
   playlistId: Types.ObjectId;
   type: MediaType;
   tagIds: Types.ObjectId[];
-  url?: string;
+  videoId?: string;
   paragraph?: string[];
   description?: string;
   _createdAt: Date;
@@ -38,7 +38,7 @@ export class Media extends Document implements IMedia {
   tagIds: Types.ObjectId[];
 
   @Prop({ type: String, required: false })
-  url?: string;
+  videoId?: string;
 
   @Prop({ type: [String], required: false })
   paragraph?: string[];

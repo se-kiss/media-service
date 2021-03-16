@@ -40,7 +40,7 @@ export class CreateMediaArgs
 
   @IsOptional()
   @IsString()
-  url?: string;
+  videoId?: string;
 
   @IsOptional()
   @IsArray()
@@ -63,7 +63,7 @@ export class UpdateMediaArgs
 
   @IsOptional()
   @IsString()
-  url?: string;
+  videoId?: string;
 
   @IsOptional()
   @IsArray()
