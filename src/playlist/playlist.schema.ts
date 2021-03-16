@@ -19,7 +19,7 @@ export class Playlist extends Document implements IPlaylist {
   _createdAt: Date;
   _updatedAt: Date;
 
-  @Prop({ type: String, required: true })
+  @Prop({ type: String, unique: true, required: true })
   name: string;
 
   @Prop({ type: Types.ObjectId, required: true })
