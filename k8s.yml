@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: kiss-media
-        image: registry.gitlab.com/nestz671/kiss-container-registries/media:0.0.12
+        image: registry.gitlab.com/nestz671/kiss-container-registries/media:0.0.13
         ports:
         - containerPort: 5000
         env:
