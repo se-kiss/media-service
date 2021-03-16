@@ -18,7 +18,7 @@ message SearchBody {
   string ownerName = 3;
   repeated string tags = 4;
   string description = 5;
-  repeated string types = 6;
+  string type = 6;
 }
 
 message SearchArgs {

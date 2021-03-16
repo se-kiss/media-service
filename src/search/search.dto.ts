@@ -26,9 +26,9 @@ export class SearchBody {
   tags: string[];
 
   @IsNotEmpty()
-  @IsArray()
-  @Transform((values: string[]) => values.map(value => value.toLowerCase()))
-  types: string[];
+  @IsString()
+  @Transform(value => value.toLowerCase())
+  type: string;
 
   @IsOptional()
   @IsString()

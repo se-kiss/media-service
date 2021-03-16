@@ -19,7 +19,7 @@ export class SearchService {
         ownerName: playlist.ownerName,
         description: playlist.description,
         tags: playlist.tags,
-        types: playlist.types,
+        type: playlist.type,
       },
     });
     return res.statusCode;
@@ -35,7 +35,7 @@ export class SearchService {
             {
               query_string: {
                 query: args.text,
-                fields: ['name', 'ownerName', 'tags', 'description', 'types'],
+                fields: ['name', 'ownerName', 'tags', 'description', 'type'],
                 analyze_wildcard: true,
               },
             },
@@ -46,7 +46,7 @@ export class SearchService {
             },
             {
               terms: {
-                types: args.types,
+                type: args.types,
               },
             },
           ],
@@ -62,7 +62,7 @@ export class SearchService {
   }
 
   async update(args: SearchBody): Promise<number> {
-    const newMedia: Omit<SearchBody, 'playlistId' | 'tags' | 'types'> = {
+    const newMedia: Omit<SearchBody, 'playlistId' | 'tags' | 'type'> = {
       name: args.name,
       description: args.description || '',
       ownerName: args.ownerName,
@@ -74,7 +74,7 @@ export class SearchService {
       '',
     );
     const tagsScript = 'ctx._source.tags = params.tags;';
-    const typesScript = 'ctx._source.types = params.types;';
+    const typesScript = 'ctx._source.type = params.type;';
     const res = await this.esService.update({
       index: this.index,
       id: args.playlistId,
@@ -83,7 +83,7 @@ export class SearchService {
           source: bodyScript + tagsScript + typesScript,
           params: {
             tags: args.tags,
-            types: args.types,
+            type: args.type,
           },
         },
       },

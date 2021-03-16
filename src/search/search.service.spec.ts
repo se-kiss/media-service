@@ -58,7 +58,7 @@ describe('SearchService', () => {
       name: 'test',
       ownerName: 'nest',
       tags: ['kuy'],
-      types: ['hee'],
+      type: 'hee',
     });
     expect(res).toEqual(201);
   });
@@ -69,7 +69,7 @@ describe('SearchService', () => {
       size: 10,
       from: 0,
       tags: [],
-      types: [],
+      types: ['ped'],
     };
     expect(await service.search(args)).toBeDefined();
   });
@@ -80,7 +80,7 @@ describe('SearchService', () => {
       name: 'test',
       ownerName: 'nest',
       tags: ['kuy'],
-      types: ['hee'],
+      type: 'hee',
     });
     const res = await service.remove('bbbbbbbbbbbbbbbbbbbbbbbb');
     expect(res).toEqual(200);
@@ -92,14 +92,14 @@ describe('SearchService', () => {
       name: 'test',
       ownerName: 'nest',
       tags: ['kuy'],
-      types: ['hee'],
+      type: 'hee',
     });
     const args: SearchBody = {
       playlistId: 'dddddddddddddddddddddddd',
       name: 'yes ped',
       ownerName: 'kuay',
       tags: ['kuy', 'hee'],
-      types: ['ped'],
+      type: 'ped',
     };
     const res = await service.update(args);
     expect(res).toEqual(200);
