@@ -50,7 +50,7 @@ describe('MediaService', () => {
       playlistId: new Types.ObjectId(),
       name: 'test',
       type: MediaType.CLIP,
-      url: 'test.com',
+      videoId: 'test.com',
       tagIds: [new Types.ObjectId('aaaaaaaaaaaaaaaaaaaaaaaa')],
       paragraph: ['test', 'test2'],
       description: 'test',
@@ -63,7 +63,8 @@ describe('MediaService', () => {
       playlistId: new Types.ObjectId(),
       name: 'test2',
       type: MediaType.ARTICLE,
-      url: 'test2.com',
+      videoId: 'test2.com',
+      podcastKey: 'key',
       tagIds: [new Types.ObjectId('aaaaaaaaaaaaaaaaaaaaaaaa')],
       paragraph: ['test', 'test2'],
       description: 'test2',
@@ -72,7 +73,7 @@ describe('MediaService', () => {
     expect(res[0]._id).toEqual(media._id);
     expect(res[0].playlistId).toEqual(media.playlistId);
     expect(res[0].name).toEqual(media.name);
-    expect(res[0].url).toEqual(media.url);
+    expect(res[0].videoId).toEqual(media.videoId);
     expect(res[0].tagIds[0]).toEqual(media.tagIds[0]);
     expect(res[0].paragraph.length).toEqual(media.paragraph.length);
     expect(res[0].description).toEqual(media.description);
@@ -89,7 +90,8 @@ describe('MediaService', () => {
       playlistId: new Types.ObjectId(),
       name: 'test3',
       type: MediaType.CLIP,
-      url: 'test3.com',
+      videoId: 'test3.com',
+      podcastKey: 'key2',
       tagIds: [new Types.ObjectId('aaaaaaaaaaaaaaaaaaaaaaaa')],
       paragraph: ['test', 'test2'],
       description: 'test3',
@@ -110,7 +112,7 @@ describe('MediaService', () => {
       playlistId: new Types.ObjectId(),
       name: 'test4',
       type: MediaType.ARTICLE,
-      url: 'test4.com',
+      videoId: 'test4.com',
       tagIds: [new Types.ObjectId('aaaaaaaaaaaaaaaaaaaaaaaa')],
       paragraph: ['test', 'test2'],
       description: 'test4',
