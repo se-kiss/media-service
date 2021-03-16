@@ -4,6 +4,7 @@ import { Document, Types } from 'mongoose';
 export enum MediaType {
   CLIP = 1,
   ARTICLE = 2,
+  PODCAST = 3,
 }
 
 export interface IMedia {

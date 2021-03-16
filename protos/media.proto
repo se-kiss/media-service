@@ -13,6 +13,7 @@ enum MediaType {
   EMPTY = 0;
   CLIP = 1;
   ARTICLE = 2;
+  PODCAST = 3;
 }
 
 message Media {
