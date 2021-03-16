@@ -23,8 +23,7 @@ export class TagService implements OnModuleInit {
   async getTags({ ids }: GetTagsArgs): Promise<Tag[]> {
     const tag = this.tagModel.find({});
     ids && tag.find({ _id: { $in: ids } });
-    const res = await tag.exec();
-    return res;
+    return await tag.exec();
   }
 
   async updateTag(tag: UpdateTagArgs): Promise<Tag> {
