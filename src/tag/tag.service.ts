@@ -20,8 +20,9 @@ export class TagService implements OnModuleInit {
     return await createdTag.save();
   }
 
-  async getTags({ ids }: GetTagsArgs): Promise<Tag[]> {
+  async getTags({ ids, filter }: GetTagsArgs): Promise<Tag[]> {
     const tag = this.tagModel.find({});
+    if (filter) tag.find({ name: filter.name });
     ids && tag.find({ _id: { $in: ids } });
     return await tag.exec();
   }

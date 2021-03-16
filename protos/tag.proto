@@ -26,8 +26,13 @@ message CreateTagArgs {
   string color = 2;
 }
 
+message GetTagsFilter {
+  string name = 1;
+}
+
 message GetTagArgs {
   repeated string ids = 1;
+  optional GetTagsFilter filter = 2;
 }
 
 message UpdateTagArgs {

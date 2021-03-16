@@ -1,7 +1,13 @@
-import { ITag } from './tag.schema';
 import { Types } from 'mongoose';
-import { IsNotEmpty, IsString, IsOptional, IsArray } from 'class-validator';
-import { Transform } from 'class-transformer';
+import { ITag } from './tag.schema';
+import {
+  IsNotEmpty,
+  IsString,
+  IsOptional,
+  IsArray,
+  ValidateNested,
+} from 'class-validator';
+import { Transform, Type } from 'class-transformer';
 
 export class CreateTagArgs implements Omit<ITag, '_createdAt' | '_updatedAt'> {
   @IsNotEmpty()
@@ -24,6 +30,12 @@ export class UpdateTagArgs
   color: string;
 }
 
+export class GetTagsFilter {
+  @IsNotEmpty()
+  @IsString()
+  name: string;
+}
+
 export class GetTagsArgs {
   @IsOptional()
   @IsArray()
@@ -33,6 +45,11 @@ export class GetTagsArgs {
       : values.map(value => new Types.ObjectId(value));
   })
   ids?: Types.ObjectId[];
+
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => GetTagsFilter)
+  filter?: GetTagsFilter;
 }
 
 export class DeleteTagArgs {
